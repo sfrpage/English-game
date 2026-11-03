@@ -28,7 +28,7 @@
       <div class="hero-art" aria-label="Friendly animal friends">
         <div class="sun"></div><div class="cloud cloud-one"></div><div class="cloud cloud-two"></div>
         <div class="hill hill-back"></div><div class="hill hill-front"></div>
-        <span class="hero-animal bunny">🐰</span><span class="hero-animal bear">🐻</span><span class="hero-animal fox">🦊</span>
+        <img class="hero-animal bunny" src="assets/bunny.svg" alt="Bunny"><img class="hero-animal bear" src="assets/bear.svg" alt="Bear"><img class="hero-animal fox" src="assets/fox.svg" alt="Fox">
         <span class="speech-bubble">Hello, friend!</span><span class="star star-one">✦</span><span class="star star-two">✧</span>
       </div>
     </section>
@@ -40,17 +40,17 @@
       </div>
       <div class="game-grid">
         <button class="game-card talk-card" type="button" data-game="talk">
-          <span class="card-emoji">🐰</span><span class="card-tag">SPEAK & ANSWER</span>
+          <span class="card-emoji"><img src="assets/bunny.svg" alt=""></span><span class="card-tag">SPEAK & ANSWER</span>
           <strong>Let's Talk!</strong><span class="card-desc">Help Bunny, Bear and Fox with snacks, toys and little adventures.</span>
           <span class="learn-line">Practise: “I want an apple.”</span><span class="card-link">Play with the animals ↗</span>
         </button>
         <button class="game-card animal-card" type="button" data-game="animals">
-          <span class="card-emoji">🦒</span><span class="card-tag">COMPARE & DESCRIBE</span>
+          <span class="card-emoji"><img src="assets/giraffe.svg" alt=""></span><span class="card-tag">COMPARE & DESCRIBE</span>
           <strong>Animal World</strong><span class="card-desc">Meet animal pairs and talk about how they are different.</span>
           <span class="learn-line">Learn: big, small, tall, short…</span><span class="card-link">Meet the animals ↗</span>
         </button>
         <button class="game-card places-card" type="button" data-game="places">
-          <span class="card-emoji">🐻</span><span class="card-tag">LOOK & FIND</span>
+          <span class="card-emoji"><img src="assets/bear.svg" alt=""></span><span class="card-tag">LOOK & FIND</span>
           <strong>Where Is It?</strong><span class="card-desc">Help animal friends find things in fun places.</span>
           <span class="learn-line">Learn: in, on, under, behind…</span><span class="card-link">Go exploring ↗</span>
         </button>
@@ -67,7 +67,7 @@
     <section class="game-modal">
       <button class="close-btn" id="closeModal" type="button" aria-label="Close game">✕</button>
       <div class="modal-topline"><span id="gameBadge">LET'S TALK</span><span id="roundCount">Round 1</span></div>
-      <div class="character-stage" id="characterStage"><span class="big-character" id="character">🐰</span><span class="stage-star left">✦</span><span class="stage-star right">✧</span></div>
+      <div class="character-stage" id="characterStage"><img class="stage-img" id="stageImg" src="assets/bunny.svg" alt=""></div>
       <h2 id="gameTitle">Let's Talk!</h2>
       <p class="prompt" id="prompt"></p>
       <p class="helper" id="helper"></p>
@@ -75,6 +75,7 @@
       <div class="choices" id="choices"></div>
       <p class="speech-status" id="speechStatus" aria-live="polite">Tap the microphone when you're ready.</p>
       <div class="action-row">
+        <button class="replay-btn" id="replayBtn" type="button" aria-label="Listen again"><span>🔊</span><strong>Listen again</strong></button>
         <button class="mic-btn" id="micBtn" type="button"><span>🎙️</span><strong>My turn to talk!</strong></button>
         <button class="hint-btn" id="hintBtn" type="button">💡 Help me say it</button>
       </div>

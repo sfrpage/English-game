@@ -12,11 +12,17 @@ Every activity includes short spoken prompts, sentence models, optional picture 
 ## Publish on GitHub Pages
 1. Download and unzip the website package.
 2. Create a GitHub repository, e.g. `little-talkers`.
-3. Upload `index.html`, `style.css`, `script.js`, and `README.md` directly into the repository root (not inside another folder).
+3. Upload `index.html`, `style.css`, `script.js`, `README.md` and the whole `assets` folder directly into the repository root (not inside another folder).
 4. Open **Settings → Pages**.
 5. Under **Build and deployment**, choose **Deploy from a branch**.
 6. Select branch **main** and folder **/(root)**, then click **Save**.
 7. Wait for deployment. The URL will look like `https://YOUR-USERNAME.github.io/little-talkers/`.
+
+## What's new
+- All animals and objects are now original child-friendly SVG illustrations in `assets/` (no emojis, no external links, about 110 KB in total).
+- Animal World scenes show size, height, length and speed through scale and motion lines.
+- Where Is It? has 8 full scenes: in, on, under, beside, behind, next to, up, down.
+- The voice picks the best English voice on the device, speaks slowly, asks each question once and then waits. A **Listen again** button repeats it. The microphone only starts when tapped.
 
 ## Notes
 - The browser speech-recognition API is not supported everywhere. Test microphone input on the device and browser you plan to use. If unavailable, the games still work with picture choices and spoken sentence models.
