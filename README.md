@@ -1,30 +1,26 @@
 # Little Talkers 🌈
 
-A small, colorful, mobile-friendly English speaking game for a 3-year-old who understands basic English and is building confidence speaking it.
+A colorful, mobile-friendly English-speaking game website for a young child who understands basic English and is building confidence speaking it.
 
-## What's included
-- Three mini-games: Snack Time, The Toy Shop, and Fox's Adventure
-- Short, age-appropriate sentence models
-- Optional English speech recognition (where the browser supports it)
-- English spoken prompts using browser text-to-speech
-- Picture-choice fallback if speech recognition isn't available
-- Responsive layout for phones, tablets, and computers
+## The three games
+1. **Let's Talk!** — the original speaking game: snacks, toy choices and finding a ball. Encourages phrases such as “I want an apple.”
+2. **Animal World** — comparisons with animals: bigger/smaller, taller/shorter, longer/shorter and faster/slower.
+3. **Where Is It?** — positions and locations: under/on, in/next to, behind/in front of, inside/outside.
 
-## Run it locally
-Open `index.html` in a browser. For microphone access, it is best to run the site from `localhost` or HTTPS (GitHub Pages provides HTTPS).
+Every activity includes short spoken prompts, sentence models, optional picture choices, and gentle encouragement. Picture choices support the child but are not treated as a test.
 
 ## Publish on GitHub Pages
-1. Create a new repository on GitHub, for example `little-talkers`.
-2. Upload `index.html`, `style.css`, `script.js`, and `README.md` to the repository root.
-3. Go to **Settings → Pages**.
-4. Under **Build and deployment**, choose **Deploy from a branch**.
-5. Select branch **main** and folder **/(root)**, then click **Save**.
-6. Wait a minute or two. GitHub will show your website link in the Pages section, usually:
-   `https://YOUR-USERNAME.github.io/little-talkers/`
+1. Download and unzip the website package.
+2. Create a GitHub repository, e.g. `little-talkers`.
+3. Upload `index.html`, `style.css`, `script.js`, and `README.md` directly into the repository root (not inside another folder).
+4. Open **Settings → Pages**.
+5. Under **Build and deployment**, choose **Deploy from a branch**.
+6. Select branch **main** and folder **/(root)**, then click **Save**.
+7. Wait for deployment. The URL will look like `https://YOUR-USERNAME.github.io/little-talkers/`.
 
-## Important notes
-- Speech recognition support varies by browser. It is generally more reliable in Chromium-based browsers and may not work in every iPhone browser.
-- The website does not send or store a transcript itself. Browser speech recognition behavior depends on the browser provider and its privacy policy; ask an adult before enabling the microphone.
-- This is a starter prototype, not a clinical speech-language therapy tool. Keep sessions short, playful, and pressure-free.
-- The voice uses English (UK) where available. The actual voice depends on the device/browser.
-- Google Fonts is used for the rounded typeface; the page falls back to system fonts if unavailable.
+## Notes
+- The browser speech-recognition API is not supported everywhere. Test microphone input on the device and browser you plan to use. If unavailable, the games still work with picture choices and spoken sentence models.
+- Text-to-speech uses an English (UK) voice when available; the device chooses the actual voice.
+- Speech recognition may mishear young children's voices. It is a playful aid, not an accurate assessment of pronunciation or grammar.
+- The site itself does not store transcripts. Browser speech-recognition services may process audio according to their own policies; supervise microphone use and check browser privacy settings.
+- This is a learning-game prototype, not a speech therapy tool. Keep play sessions relaxed and celebrate attempts.
