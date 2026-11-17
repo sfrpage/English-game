@@ -18,3 +18,18 @@ img{display:block;max-width:100%}
 .hint-btn{font-size:15px;padding:14px 16px}.feedback{font-size:16px}.speech-status{font-size:14px}
 .next-btn{font-size:17px;padding:14px 26px}
 @media(max-width:760px){.character-stage{max-height:none}.choice-btn{min-width:calc(50% - 8px)}.action-row>button{flex:1 1 40%;justify-content:center}}
+
+
+/* Speaking-first redesign */
+.coming-card{cursor:default;opacity:.88}
+.coming-card:hover{transform:none;box-shadow:0 7px 22px #493d6c0d}
+.teaching-phrase{width:100%;padding:22px 18px;margin:8px auto 14px;border:3px solid #f2dfad;border-radius:20px;background:#fff7dc;color:#51452f;font-size:clamp(21px,4vw,29px);font-weight:900;line-height:1.35}
+.lesson-progress{font-size:12px;font-weight:900;color:#8873e6;margin:4px 0 12px}
+.phrase-bank{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0}
+.phrase-choice{border:2px solid #eee6f8;background:white;border-radius:14px;padding:12px 10px;color:var(--ink);font-size:13px;font-weight:900;line-height:1.35;text-align:left;cursor:grab}
+.phrase-choice:active{cursor:grabbing}
+.drop-zone{min-height:72px;width:100%;display:grid;place-items:center;padding:12px;border:3px dashed #b6a8eb;border-radius:17px;background:#f5f1ff;color:#6f5cc2;font-weight:900;font-size:15px}
+.drop-zone.correct-drop{border-style:solid;border-color:#8bc9a0;background:#e7f6eb;color:#38694d}
+.game-modal .choices{width:100%}
+.game-modal .choices .choice-btn{flex:1 1 auto}
+@media(max-width:520px){.phrase-bank{grid-template-columns:1fr}.phrase-choice{text-align:center}.teaching-phrase{padding:18px 13px}}
