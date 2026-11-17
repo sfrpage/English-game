@@ -101,7 +101,7 @@ function renderMatch(){
 }
 function choosePhrase(i){
  if(phase!=="match")return;const m=matches[index];const drop=choicesEl.querySelector(".drop-zone");
- if(i===m.answer){drop.textContent=phrases[i].say;drop.classList.add("correct-drop");statusEl.textContent="That's a helpful thing to say!";feedbackEl.textContent="Lovely matching! Now let's try saying it.";show(feedbackEl);phase="say";hide(bank);show(micBtn);show(hintBtn);show(replayBtn);show(nextBtn);nextBtn.textContent="Next situation →";say(phrases[i].say);}
+ if(i===m.answer){drop.textContent=phrases[i].say;drop.classList.add("correct-drop");statusEl.textContent="That's a helpful thing to say!";feedbackEl.textContent="Lovely matching! Now let's try saying it.";show(feedbackEl);phase="say";hide(bank);show(micBtn);show(hintBtn);show(replayBtn);show(nextBtn);nextBtn.textContent="Next situation →";nextBtn.onclick=()=>{if(index<matches.length-1){index++;renderMatch();}else{index=0;renderFree();}};say(phrases[i].say);}
  else{statusEl.textContent="Let's think about what they need. Try another phrase.";drop.textContent="Try another phrase";say("What do they need?");}
 }
 function renderSay(){
