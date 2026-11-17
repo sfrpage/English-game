@@ -178,3 +178,57 @@ img{display:block;max-width:100%}
   .hero-title span{font-size:clamp(10px,2.5vw,13px)}
   .hero-characters{right:0;width:54%;height:90%}
 }
+
+
+/* Correct artwork mapping: each game uses its own uploaded full-scene image. */
+.character-stage{
+  position:relative;
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:16/9;
+  max-height:none;
+  overflow:hidden;
+  border-radius:22px;
+  background-color:#f6eefa;
+  background-image:none!important;
+}
+.character-stage:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:cover;
+  animation:none;
+}
+.character-stage[data-scene="story"]:before{
+  background-image:url("assets/images/story-background.png");
+}
+.character-stage[data-scene="everyday"]:before{
+  background-image:url("assets/images/everyday-background.png");
+}
+.character-stage[data-scene="conversation"]:before{
+  background-image:url("assets/images/speak-background.png");
+}
+.character-stage .stage-img{display:none!important}
+.character-stage:after{z-index:1;pointer-events:none}
+.hero-characters{display:none!important}
+.hero-title{
+  left:50%;
+  top:50%;
+  width:min(90%,650px);
+  transform:translate(-50%,-50%);
+  padding:20px 26px;
+  border-radius:24px;
+  background:rgba(255,249,239,.72);
+  backdrop-filter:blur(5px);
+  text-shadow:none;
+}
+.hero-title strong{font-size:clamp(25px,3.5vw,44px)}
+.hero-title span{font-size:clamp(12px,1.5vw,18px)}
+@media(max-width:760px){
+  .hero-title{left:50%;top:50%;width:88%;padding:12px 14px}
+  .character-stage{aspect-ratio:4/3}
+}
