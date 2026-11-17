@@ -1,242 +1,131 @@
 const $ = id => document.getElementById(id);
 const A = "assets/";
-const c = (label, target, sentence, response, ok = true, icon = null) => ({label, target, sentence, response, ok, icon});
-
-const games = {
-  talk: {
-    title: "Let's Talk!", badge: "SPEAK & ANSWER", character: "bunny", name: "Bunny",
-    rounds: [
-      { name: "Snack Time", prompt: "What would you like to eat?", helper: "Can you ask for an apple? Say: “I want an apple.”", choices: [
-        c("Apple", "apple", "I want an apple.", "Yummy! An apple sounds lovely!", true, "apple"),
-        c("Banana", "banana", "I want a banana.", "A banana! Let's have a snack!", true, "banana"),
-        c("Carrot", "carrot", "I want a carrot.", "A crunchy carrot! Good choice!", true, "carrot")]},
-      { name: "Toy Shop", character: "bear", prompt: "What toy do you want?", helper: "Say: “I want the blue car.”", choices: [
-        c("Blue car", "blue car", "I want the blue car.", "Vroom, vroom! Let's drive!", true, "car-blue"),
-        c("Red car", "red car", "I want the red car.", "The red car goes zoom!", true, "car-red"),
-        c("Yellow car", "yellow car", "I want the yellow car.", "What a sunny yellow car!", true, "car-yellow")]},
-      { name: "Fox's Adventure", scene: "scene-fox", prompt: "Oh no! Where is Fox's ball? What happens next?", helper: "Say: “It's under the tree.”", choices: [
-        c("Under the tree", "tree", "It's under the tree.", "You found the ball! Fox says thank you!", true, "icon-tree"),
-        c("On the chair", "chair", "It's on the chair.", "There it is! Great helping!", true, "icon-chair"),
-        c("By the flowers", "flowers", "It's by the flowers.", "You found it by the flowers!", true, "icon-flowers")]}
-    ]
-  },
-  animals: {
-    title: "Animal World", badge: "COMPARE & DESCRIBE", character: "giraffe", name: "Giraffe",
-    rounds: [
-      { name: "Big / Small", scene: "scene-big-small", prompt: "Which animal is bigger?", helper: "Say: “The elephant is bigger.” Is the mouse big or small?", choices: [
-        c("Elephant", "elephant", "The elephant is bigger.", "Yes! The elephant is big. The mouse is small."),
-        c("Mouse", "mouse", "The mouse is smaller.", "Let's look together! The elephant is big. The mouse is small.", false)]},
-      { name: "Tall / Short", scene: "scene-tall-short", prompt: "Who is taller?", helper: "Say: “The giraffe is taller.” Tell me about the penguin.", choices: [
-        c("Giraffe", "giraffe", "The giraffe is taller.", "Yes! The giraffe is tall. The penguin is short."),
-        c("Penguin", "penguin", "The penguin is shorter.", "Let's look together! The giraffe is tall. The penguin is short.", false)]},
-      { name: "Long / Short", scene: "scene-long-short", prompt: "Which one is longer?", helper: "Say: “The snake is longer.”", choices: [
-        c("Snake", "snake", "The snake is longer.", "Yes! The snake is long. The worm is short."),
-        c("Worm", "worm", "The worm is shorter.", "Let's look together! The snake is long. The worm is short.", false)]},
-      { name: "Fast / Slow", scene: "scene-fast-slow", prompt: "Who is faster?", helper: "Say: “The cheetah is faster.”", choices: [
-        c("Cheetah", "cheetah", "The cheetah is faster.", "Zoom! The cheetah is fast. The turtle is slow."),
-        c("Turtle", "turtle", "The turtle is slower.", "Let's look together! The cheetah is fast. The turtle is slow.", false)]}
-    ]
-  },
-  places: {
-    title: "Where Is It?", badge: "LOOK & FIND", character: "bear", name: "Bear",
-    rounds: [
-      { name: "In", scene: "scene-in", prompt: "Where is the cat?", helper: "Say: “The cat is in the box.”", choices: [
-        c("In", "in", "The cat is in the box.", "Yes! The cat is in the box."), c("On", "on", "The cat is on the box.", "Let's look again! The cat is in the box.", false)]},
-      { name: "On", scene: "scene-on", prompt: "Where is the cat now?", helper: "Say: “The cat is on the box.”", choices: [
-        c("On", "on", "The cat is on the box.", "Yes! The cat is on the box."), c("Under", "under", "The cat is under the box.", "Let's look again! The cat is on the box.", false)]},
-      { name: "Under", scene: "scene-under", prompt: "Where is the cat?", helper: "Say: “The cat is under the table.”", choices: [
-        c("Under", "under", "The cat is under the table.", "Yes! The cat is under the table."), c("In", "in", "The cat is in the table.", "Let's look again! The cat is under the table.", false)]},
-      { name: "Beside", scene: "scene-beside", prompt: "Where is the cat?", helper: "Say: “The cat is beside the chair.”", choices: [
-        c("Beside", "beside", "The cat is beside the chair.", "Yes! The cat is beside the chair."), c("Behind", "behind", "The cat is behind the chair.", "Let's look again! The cat is beside the chair.", false)]},
-      { name: "Behind", scene: "scene-behind", prompt: "Where is the cat hiding?", helper: "Say: “The cat is behind the tree.”", choices: [
-        c("Behind", "behind", "The cat is behind the tree.", "Yes! The cat is behind the tree."), c("Beside", "beside", "The cat is beside the tree.", "Let's look again! The cat is behind the tree.", false)]},
-      { name: "Next to", scene: "scene-next-to", prompt: "Where is the ball?", helper: "Say: “The cat is next to the ball.”", choices: [
-        c("Next to", "next to", "The cat is next to the ball.", "Yes! The cat is next to the ball."), c("Behind", "behind", "The cat is behind the ball.", "Let's look again! The cat is next to the ball.", false)]},
-      { name: "Up", scene: "scene-up", prompt: "Where is the bird?", helper: "Say: “The bird is up in the tree.”", choices: [
-        c("Up", "up", "The bird is up in the tree.", "Yes! The bird is up in the tree."), c("Down", "down", "The bird is down.", "Let's look again! The bird is up.", false)]},
-      { name: "Down", scene: "scene-down", prompt: "Where is the ball?", helper: "Say: “The ball is down on the grass.”", choices: [
-        c("Down", "down", "The ball is down on the grass.", "Yes! The ball is down on the grass."), c("Up", "up", "The ball is up.", "Let's look again! The ball is down.", false)]}
-    ]
-  }
-};
-
 const modal = $("gameModal"), title = $("gameTitle"), stageImg = $("stageImg");
-const promptEl = $("prompt"), helperEl = $("helper");
-const choicesEl = $("choices"), statusEl = $("speechStatus"), feedbackEl = $("feedback");
-const micBtn = $("micBtn"), hintBtn = $("hintBtn"), nextBtn = $("nextBtn"), replayBtn = $("replayBtn");
-let activeGame = null, roundIndex = 0, selectedIndex = null, recognition = null, listening = false, soundOn = true, finished = false;
-let lastText = "", voice = null, speakToken = 0, speakTimer = null;
+const promptEl = $("prompt"), helperEl = $("helper"), choicesEl = $("choices");
+const statusEl = $("speechStatus"), feedbackEl = $("feedback"), micBtn = $("micBtn");
+const hintBtn = $("hintBtn"), nextBtn = $("nextBtn"), replayBtn = $("replayBtn");
+const bank = $("phraseBank"), progress = $("lessonProgress");
 const synth = "speechSynthesis" in window ? window.speechSynthesis : null;
-const praise = ["Great talking!", "Well done!", "Good job!", "Lovely!"];
-const pick = a => a[Math.floor(Math.random() * a.length)];
-const normalize = s => (s || "").toLowerCase().replace(/[.,!?'’]/g, " ").replace(/\s+/g, " ").trim();
-
-/* ---------- Voice: best available English voice, slow, never overlapping ---------- */
-function chooseVoice() {
-  if (!synth) return;
-  const score = v => {
-    let s = 0; const n = v.name;
-    if (!/^en/i.test(v.lang)) return -99;
-    if (/en[-_]GB/i.test(v.lang)) s += 4; else if (/en[-_](AU|IE|US)/i.test(v.lang)) s += 1;
-    if (/natural|neural|online/i.test(n)) s += 6;
-    if (/Google UK English Female|Serena|Kate|Stephanie|Libby|Sonia|Martha|Hazel|Samantha|Karen|Moira|Tessa|Fiona/i.test(n)) s += 4;
-    if (/female/i.test(n)) s += 1;
-    if (/compact|espeak|novelty|Albert|Bad News|Bells|Boing|Bubbles|Cellos|Deranged|Good News|Hysterical|Junior|Organ|Trinoids|Whisper|Zarvox/i.test(n)) s -= 8;
-    return s;
-  };
-  voice = synth.getVoices().filter(v => score(v) > -99).sort((a, b) => score(b) - score(a))[0] || null;
+let voice = null, soundOn = true, recognition = null, listening = false;
+let game = "", phase = "", index = 0, selected = null, lastText = "", storyStep = 0;
+const praise = ["Lovely talking!", "I love your idea!", "You helped so much!", "What a good thought!"];
+const pick = a => a[Math.floor(Math.random()*a.length)];
+function chooseVoice(){
+ if(!synth)return;
+ const vs=synth.getVoices().filter(v=>/^en/i.test(v.lang));
+ voice=vs.find(v=>/natural|neural|Google UK English Female|Serena|Kate|Sonia|Martha|Hazel|Samantha/i.test(v.name))||vs[0]||null;
 }
-if (synth) { chooseVoice(); synth.onvoiceschanged = chooseVoice; }
-function stopSpeaking() { speakToken++; clearTimeout(speakTimer); if (synth) synth.cancel(); }
-/* Speaks one text or a list of texts, with a pause between each. */
-function speak(parts, gap = 1100) {
-  stopSpeaking();
-  if (!soundOn || !synth || listening) return;
-  const list = Array.isArray(parts) ? parts.slice() : [parts], token = speakToken;
-  const next = () => {
-    if (token !== speakToken || !list.length || listening) return;
-    const u = new SpeechSynthesisUtterance(list.shift());
-    u.lang = "en-GB"; if (voice) u.voice = voice; u.rate = 0.78; u.pitch = 1.06; u.volume = 1;
-    const after = () => { if (token === speakToken) speakTimer = setTimeout(next, gap); };
-    u.onend = after; u.onerror = after;
-    synth.speak(u);
-  };
-  speakTimer = setTimeout(next, 250);
+if(synth){chooseVoice();synth.onvoiceschanged=chooseVoice;}
+function stopSpeaking(){if(synth)synth.cancel();}
+function say(text){lastText=text;if(!soundOn||!synth||listening)return;stopSpeaking();const u=new SpeechSynthesisUtterance(text);u.lang="en-GB";if(voice)u.voice=voice;u.rate=.78;u.pitch=1.05;synth.speak(u);}
+function setStage(file){stageImg.src=A+file+".svg";}
+function show(el){el.classList.remove("hidden");}
+function hide(el){el.classList.add("hidden");}
+function resetPanels(){choicesEl.innerHTML="";bank.innerHTML="";hide(bank);hide(progress);hide(feedbackEl);hide(nextBtn);show(replayBtn);show(micBtn);show(hintBtn);selected=null;}
+function openGame(which){
+ game=which;index=0;storyStep=0;modal.classList.remove("hidden");document.body.style.overflow="hidden";
+ if(which==="story")renderStory();else{phase="learn";renderLesson();}
 }
-function say(text, replay) { lastText = replay || text; speak(text); }
-
-/* ---------- Speech recognition: only starts when the mic is tapped ---------- */
-function speechRecognitionAvailable() { return "SpeechRecognition" in window || "webkitSpeechRecognition" in window; }
-function resetMic() { listening = false; micBtn.classList.remove("listening"); micBtn.querySelector("strong").textContent = "My turn to talk!"; }
-function stopListening() {
-  if (recognition && listening) { try { recognition.stop(); } catch (_) {} }
-  resetMic();
+function closeGame(){stopMic();stopSpeaking();modal.classList.add("hidden");document.body.style.overflow="";}
+function stopMic(){if(recognition&&listening){try{recognition.stop()}catch(e){}}listening=false;micBtn.classList.remove("listening");micBtn.querySelector("strong").textContent="My turn to talk!";}
+function listen(){
+ stopSpeaking();
+ const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+ if(!SR){statusEl.textContent="This browser can't use the microphone here. You can say it together without recording.";return;}
+ recognition=new SR();recognition.lang="en-GB";recognition.interimResults=false;recognition.maxAlternatives=1;
+ recognition.onstart=()=>{listening=true;micBtn.classList.add("listening");micBtn.querySelector("strong").textContent="I'm listening…";statusEl.textContent="I'm listening. Take your time!";};
+ recognition.onresult=e=>{const words=e.results[0][0].transcript;stopMic();statusEl.textContent="I heard: “"+words+"”";onSpeech(words);};
+ recognition.onerror=e=>{stopMic();statusEl.textContent=e.error==="not-allowed"?"The microphone is off. We can still play!":"That's okay. Let's try together.";};
+ recognition.onend=()=>{if(listening)stopMic();};
+ try{recognition.start()}catch(e){stopMic();statusEl.textContent="Let's try again when you're ready.";}
 }
-function startListening() {
-  stopSpeaking();
-  if (!speechRecognitionAvailable()) {
-    statusEl.textContent = "No microphone here. That's okay! Pick a picture and say it together.";
-    return;
-  }
-  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  recognition = new SR();
-  recognition.lang = "en-GB"; recognition.interimResults = false; recognition.maxAlternatives = 3; recognition.continuous = false;
-  recognition.onstart = () => { listening = true; micBtn.classList.add("listening"); micBtn.querySelector("strong").textContent = "I'm listening…"; statusEl.textContent = "I'm listening. Take your time!"; };
-  recognition.onresult = e => { const alts = Array.from(e.results[0]).map(r => r.transcript); resetMic(); evaluateSpeech(alts); };
-  recognition.onerror = e => { resetMic(); statusEl.textContent = e.error === "not-allowed" ? "The microphone is off. You can still play with the pictures." : "That's okay! Let's try together or pick a picture."; };
-  recognition.onend = resetMic;
-  try { recognition.start(); } catch (_) { resetMic(); statusEl.textContent = "That's okay! Let's use the pictures."; }
+function onSpeech(words){
+ if(game==="story"){show(feedbackEl);feedbackEl.textContent=pick(praise)+" "+words+"!";say("I love that idea! "+words);}
+ else if(phase==="say"){show(feedbackEl);feedbackEl.textContent="You had a go! That's wonderful. You can say it again or move on.";say("Well done for having a go!");show(nextBtn);}
+ else if(phase==="free"){show(feedbackEl);feedbackEl.textContent="You told me what you need. Lovely talking!";say("Lovely talking!");show(nextBtn);}
 }
-
-/* ---------- Game flow ---------- */
-function openGame(key) {
-  activeGame = games[key]; roundIndex = 0; finished = false;
-  modal.classList.remove("hidden"); document.body.style.overflow = "hidden";
-  renderRound();
+function base(badge,round,heading,prompt,helper,character){
+ $("gameBadge").textContent=badge;$("roundCount").textContent=round;title.textContent=heading;
+ promptEl.textContent=prompt;helperEl.textContent=helper;setStage(character||"bunny");resetPanels();
+ statusEl.textContent="Listen, then have a go. There's no rush.";
 }
-function closeGame() {
-  stopListening(); stopSpeaking();
-  modal.classList.add("hidden"); document.body.style.overflow = "";
+function renderStory(){
+ phase="story";const stories=[
+ {name:"A walk in the woods",p:"Oh dear! Bunny can't find the way home. What should Bunny do?",h:"Tell Bunny your idea. You could say “Ask Teddy for help!” or think of your own idea.",s:"Bunny is lost in the woods. What should Bunny do?"},
+ {name:"The rainy day",p:"It's raining and Teddy wants to play outside. What could Teddy do?",h:"Tell Teddy what you think. “Let's put on our boots!” is one idea.",s:"It's raining! What could Teddy do?"},
+ {name:"A hungry friend",p:"Bunny's tummy is rumbling. What should we find for Bunny to eat?",h:"You can say “Let's find a carrot!” or tell us another idea.",s:"Bunny is hungry. What should we find?"},
+ {name:"The missing teddy",p:"Teddy can't find his favourite little hat. Where should we look?",h:"Tell us where to look. “Look under the bed!” or your own idea.",s:"Where should we look for Teddy's hat?"}
+ ];
+ const st=stories[storyStep%stories.length];base("STORY TIME","Adventure "+(storyStep+1),st.name,st.p,st.h,storyStep%2?"bear":"bunny");
+ statusEl.textContent="There isn't one right answer. Tell us what you think!";
+ const starters=["Let's…","He can…","We should…"];
+ starters.forEach(t=>{const b=document.createElement("button");b.className="choice-btn";b.textContent=t;b.onclick=()=>{statusEl.textContent="Can you finish that idea?";say(t);};choicesEl.appendChild(b);});
+ show(nextBtn);nextBtn.textContent="Next adventure →";nextBtn.onclick=()=>{storyStep++;renderStory();};
+ say(st.s);
 }
-function setStage(file, isCharacter) {
-  stageImg.src = A + file + ".svg"; stageImg.classList.toggle("character", !!isCharacter);
+const phrases=[
+ {group:"Asking for a drink",scene:"Teddy is thirsty. His mouth feels dry.",say:"Can I have some water, please?",short:"Some water, please!",img:"bear"},
+ {group:"Asking for a snack",scene:"Bunny is hungry and would like a cookie.",say:"Can I have a cookie, please?",short:"A cookie, please!",img:"bunny"},
+ {group:"Asking for help",scene:"Teddy's toy is stuck. He can't reach it.",say:"Can you help me, please?",short:"Can you help me?",img:"bear"},
+ {group:"Going to the toilet",scene:"Bunny needs to go to the toilet.",say:"Can I go to the toilet, please?",short:"Can I go to the toilet?",img:"bunny"},
+ {group:"Asking to play",scene:"Teddy sees Bunny playing with blocks. He wants to join.",say:"Can I play with you?",short:"Can I play too?",img:"bear"},
+ {group:"Taking a turn",scene:"Bunny and Teddy are playing with a ball. Bunny wants a turn.",say:"Can I have a turn, please?",short:"Can I have a turn?",img:"bunny"},
+ {group:"Saying how you feel",scene:"Teddy feels tired after a busy day.",say:"I'm tired. I want to rest.",short:"I'm tired.",img:"bear"},
+ {group:"Saying thank you",scene:"Bunny's friend gives her a lovely present.",say:"Thank you! I love it!",short:"Thank you!",img:"bunny"}
+];
+function renderLesson(){
+ phase="learn";const p=phrases[index];base("EVERYDAY ENGLISH","Learn "+(index+1)+" of "+phrases.length,p.group,p.scene,"Listen to Teddy or Bunny. You can listen as many times as you like.",p.img);
+ progress.textContent="Getting to know our phrases · "+(index+1)+" / "+phrases.length;show(progress);
+ const card=document.createElement("div");card.className="teaching-phrase";card.textContent=p.say;choicesEl.appendChild(card);
+ statusEl.textContent="Listen first. No need to repeat yet.";
+ nextBtn.textContent=index===phrases.length-1?"I've learned them! →":"Next phrase →";show(nextBtn);
+ nextBtn.onclick=()=>{if(index<phrases.length-1){index++;renderLesson();}else{phase="match";index=0;renderMatch();}};
+ say(p.say);
 }
-function renderRound() {
-  stopListening(); stopSpeaking(); selectedIndex = null; finished = false;
-  const round = activeGame.rounds[roundIndex];
-  $("gameBadge").textContent = activeGame.badge;
-  $("roundCount").textContent = `Activity ${roundIndex + 1} of ${activeGame.rounds.length}`;
-  title.textContent = round.name;
-  round.scene ? setStage(round.scene, false) : setStage(round.character || activeGame.character, true);
-  promptEl.textContent = round.prompt; helperEl.textContent = round.helper;
-  choicesEl.innerHTML = ""; feedbackEl.classList.add("hidden"); nextBtn.classList.add("hidden");
-  nextBtn.textContent = "Next →"; replayBtn.classList.remove("hidden"); micBtn.classList.remove("hidden"); hintBtn.classList.remove("hidden");
-  statusEl.textContent = speechRecognitionAvailable() ? "Listen, then tap the microphone when you're ready." : "Look at the picture, then say it together.";
-  round.choices.forEach((choice, index) => {
-    const b = document.createElement("button"); b.type = "button"; b.className = "choice-btn";
-    if (choice.icon) { const im = document.createElement("img"); im.src = A + choice.icon + ".svg"; im.alt = ""; b.appendChild(im); }
-    b.appendChild(document.createTextNode(choice.label));
-    b.addEventListener("click", () => choose(index));
-    choicesEl.appendChild(b);
-  });
-  say(round.prompt);   // asked once; then silence so she has time to answer
+const matches=[
+ {scene:"Teddy is thirsty. He would like a drink.",answer:0},
+ {scene:"Bunny is hungry. She would like a cookie.",answer:1},
+ {scene:"Teddy can't reach his toy.",answer:2},
+ {scene:"Bunny needs the toilet.",answer:3},
+ {scene:"Teddy wants to join Bunny's game.",answer:4},
+ {scene:"Bunny would like to play with the ball now.",answer:5},
+ {scene:"Teddy is yawning and rubbing his eyes.",answer:6},
+ {scene:"A friend gives Bunny a present.",answer:7}
+];
+function renderMatch(){
+ phase="match";const m=matches[index];base("EVERYDAY ENGLISH","Match "+(index+1)+" of "+matches.length,"What could they say?",m.scene,"Choose the phrase that would help. You can tap it or drag it into the box.","bear");
+ progress.textContent="Let's find the right words · "+(index+1)+" / "+matches.length;show(progress);
+ const drop=document.createElement("div");drop.className="drop-zone";drop.textContent="Drop a phrase here";drop.ondragover=e=>e.preventDefault();drop.ondrop=e=>{e.preventDefault();choosePhrase(Number(e.dataTransfer.getData("text/plain")));};choicesEl.appendChild(drop);
+ phrases.forEach((p,i)=>{const b=document.createElement("button");b.className="phrase-choice";b.textContent=p.say;b.draggable=true;b.ondragstart=e=>e.dataTransfer.setData("text/plain",String(i));b.onclick=()=>choosePhrase(i);bank.appendChild(b);});
+ show(bank);hide(micBtn);hide(hintBtn);hide(replayBtn);statusEl.textContent="Take your time. You can listen to the choices with help."; 
 }
-function choose(index) {
-  selectedIndex = index;
-  [...choicesEl.children].forEach((b, i) => b.classList.toggle("selected", i === index));
-  const round = activeGame.rounds[roundIndex], choice = round.choices[index];
-  const good = choice.ok ? choice : round.choices.find(x => x.ok);
-  feedbackEl.classList.remove("hidden"); nextBtn.classList.remove("hidden");
-  if (choice.ok) {
-    feedbackEl.textContent = `💛 Can you say: “${choice.sentence}”`;
-    statusEl.textContent = "Your turn! Take your time.";
-    say(`Can you say: ${choice.sentence}`, choice.sentence);
-  } else {
-    feedbackEl.textContent = `💛 Let's look together! “${good.sentence}”`;
-    statusEl.textContent = "Let's say it together!";
-    say(`Let's look together. ${good.sentence}`, good.sentence);
-  }
+function choosePhrase(i){
+ if(phase!=="match")return;const m=matches[index];const drop=choicesEl.querySelector(".drop-zone");
+ if(i===m.answer){drop.textContent=phrases[i].say;drop.classList.add("correct-drop");statusEl.textContent="That's a helpful thing to say!";feedbackEl.textContent="Lovely matching! Now let's try saying it.";show(feedbackEl);phase="say";hide(bank);show(micBtn);show(hintBtn);show(replayBtn);show(nextBtn);nextBtn.textContent="Next situation →";say(phrases[i].say);}
+ else{statusEl.textContent="Let's think about what they need. Try another phrase.";drop.textContent="Try another phrase";say("What do they need?");}
 }
-function evaluateSpeech(transcripts) {
-  const round = activeGame.rounds[roundIndex];
-  const hit = (words, target) => (` ${words} `).includes(` ${target} `) || target.split(" ").every(p => (` ${words} `).includes(` ${p} `));
-  let idx = -1, heard = transcripts[0] || "";
-  for (const t of transcripts) {
-    const words = normalize(t), i = round.choices.findIndex(ch => hit(words, normalize(ch.target)));
-    if (i >= 0) { idx = i; heard = t; break; }
-  }
-  statusEl.textContent = `I heard: “${heard}”`;
-  feedbackEl.classList.remove("hidden"); nextBtn.classList.remove("hidden");
-  const model = (idx >= 0 ? round.choices[idx] : round.choices.find(x => x.ok)).sentence;
-  if (idx < 0) {
-    feedbackEl.textContent = `💛 Thank you for trying! Let's try together: “${model}”`;
-    say(`Thank you for trying. Let's try together. ${model}`, model); return;
-  }
-  selectedIndex = idx;
-  [...choicesEl.children].forEach((b, i) => b.classList.toggle("selected", i === idx));
-  const choice = round.choices[idx];
-  if (normalize(heard).split(" ").length >= 3) {
-    const p = pick(praise);
-    feedbackEl.textContent = `🌟 ${p} ${choice.response}`;
-    say([p, choice.response], choice.response);
-  } else {
-    feedbackEl.textContent = `💛 I heard you! Can you say a little more? “${choice.sentence}”`;
-    say(`I heard you. Can you say: ${choice.sentence}`, choice.sentence);
-  }
+function renderSay(){
+ phase="say";const m=matches[index],p=phrases[m.answer];base("EVERYDAY ENGLISH","Say it "+(index+1)+" of "+matches.length,"Your turn to talk!",m.scene,"Can you say what Teddy or Bunny could ask? Have a go in your own time.",p.img);
+ const model=document.createElement("div");model.className="teaching-phrase";model.textContent=p.say;choicesEl.appendChild(model);
+ statusEl.textContent="You can listen first, then try saying it.";
+ show(nextBtn);nextBtn.textContent=index===matches.length-1?"Try without the phrases →":"Next one →";
+ nextBtn.onclick=()=>{if(index<matches.length-1){index++;renderSay();}else{phase="free";index=0;renderFree();}};
+ say(p.say);
 }
-function showHint() {
-  const round = activeGame.rounds[roundIndex];
-  const choice = round.choices[selectedIndex === null ? 0 : selectedIndex];
-  const good = choice.ok ? choice : round.choices.find(x => x.ok);
-  feedbackEl.classList.remove("hidden"); nextBtn.classList.remove("hidden");
-  feedbackEl.textContent = `💡 Let's say it together: “${good.sentence}”`;
-  statusEl.textContent = "Listen first. Then you try!";
-  say(good.sentence);
+function renderFree(){
+ phase="free";const m=matches[index];base("EVERYDAY ENGLISH","Your own words "+(index+1)+" of "+matches.length,"What would you say?",m.scene,"Try asking in your own words. You don't have to copy a sentence.",phrases[m.answer].img);
+ statusEl.textContent="What would you say? Tap the microphone if you'd like.";
+ show(nextBtn);nextBtn.textContent=index===matches.length-1?"Finish →":"Next moment →";
+ nextBtn.onclick=()=>{if(index<matches.length-1){index++;renderFree();}else{base("WELL DONE!","","You did it!","You learned lots of useful English.","Every little attempt helps you grow. Let's play again soon.","bunny");statusEl.textContent="Lovely talking!";say("You did it! I'm so proud of your talking!");hide(micBtn);hide(hintBtn);hide(replayBtn);show(nextBtn);nextBtn.textContent="Choose another game";nextBtn.onclick=closeGame;}};
 }
-function nextRound() {
-  if (finished) { closeGame(); document.querySelector("#games").scrollIntoView({behavior: "smooth"}); return; }
-  if (roundIndex < activeGame.rounds.length - 1) { roundIndex++; renderRound(); return; }
-  finished = true; stopListening();
-  title.textContent = "You did it!"; setStage(activeGame.character, true);
-  promptEl.textContent = "You used your English. Great talking!";
-  helperEl.textContent = "Every little sentence helps you grow.";
-  choicesEl.innerHTML = ""; micBtn.classList.add("hidden"); hintBtn.classList.add("hidden");
-  feedbackEl.classList.remove("hidden"); feedbackEl.textContent = "🌟 Hooray! Let's play again soon.";
-  statusEl.textContent = "You were a brilliant helper!"; nextBtn.textContent = "Choose another game"; nextBtn.classList.remove("hidden");
-  say("Hooray! Great talking! You were a brilliant helper.");
+function showHint(){
+ if(game==="story"){say("You can start with: I think… or Let's…");statusEl.textContent="You can use your own idea. There is no wrong answer.";return;}
+ const p=phrases[matches[index]?.answer??index]||phrases[index];show(feedbackEl);feedbackEl.textContent="Here is one way to say it: “"+p.say+"”";say(p.say);
 }
-
-document.querySelectorAll("[data-game]").forEach(b => b.addEventListener("click", () => openGame(b.dataset.game)));
-$("closeModal").addEventListener("click", closeGame);
-modal.addEventListener("click", e => { if (e.target === modal) closeGame(); });
-micBtn.addEventListener("click", () => listening ? stopListening() : startListening());
-hintBtn.addEventListener("click", showHint);
-nextBtn.addEventListener("click", nextRound);
-replayBtn.addEventListener("click", () => { stopListening(); const t = lastText || (activeGame && activeGame.rounds[roundIndex].prompt); if (t) speak(t); });
-$("soundToggle").addEventListener("click", () => {
-  soundOn = !soundOn;
-  $("soundToggle").setAttribute("aria-pressed", String(soundOn));
-  $("soundToggle").innerHTML = soundOn ? '🔊 <span>Sound on</span>' : '🔇 <span>Sound off</span>';
-  if (!soundOn) stopSpeaking();
-});
-document.addEventListener("keydown", e => { if (e.key === "Escape" && !modal.classList.contains("hidden")) closeGame(); });
+document.querySelectorAll("[data-game]").forEach(b=>b.addEventListener("click",()=>openGame(b.dataset.game)));
+$("closeModal").addEventListener("click",closeGame);modal.addEventListener("click",e=>{if(e.target===modal)closeGame();});
+micBtn.addEventListener("click",()=>listening?stopMic():listen());
+hintBtn.addEventListener("click",showHint);
+replayBtn.addEventListener("click",()=>{if(lastText)say(lastText);});
+$("soundToggle").addEventListener("click",()=>{soundOn=!soundOn;$("soundToggle").setAttribute("aria-pressed",String(soundOn));$("soundToggle").innerHTML=soundOn?'🔊 <span>Sound on</span>':'🔇 <span>Sound off</span>';if(!soundOn)stopSpeaking();});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!modal.classList.contains("hidden"))closeGame();});
