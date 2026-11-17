@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#fff7e9">
-  <title>Little Talkers — English Playtime</title>
+  <title>Teddy & Bunny — English Playtime</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="topbar">
     <a class="brand" href="#" aria-label="Little Talkers home">
-      <span class="brand-mark">🌈</span>
+      <span class="brand-mark">🐻</span>
       <span><strong>Little Talkers</strong><small>Little words, big adventures</small></span>
     </a>
     <button class="sound-toggle" id="soundToggle" type="button" aria-pressed="true">🔊 <span>Sound on</span></button>
@@ -24,7 +24,7 @@
         <a class="primary-btn" href="#games">Choose a game <span>↓</span></a>
         <p class="gentle-note">💛 No tests. No pressure. Just play.</p>
       </div>
-      <div class="hero-art" aria-label="Friendly animal friends">
+      <div class="hero-art" aria-label="Teddy and Bunny in their storybook world"><img class="hero-scene" src="assets/story-scene.svg" alt="Teddy and Bunny playing in a sunny storybook meadow">
         <div class="sun"></div><div class="cloud cloud-one"></div><div class="cloud cloud-two"></div>
         <div class="hill hill-back"></div><div class="hill hill-front"></div>
         <img class="hero-animal bunny" src="assets/bunny.svg" alt="Bunny"><img class="hero-animal bear" src="assets/bear.svg" alt="Teddy bear">
@@ -35,20 +35,20 @@
       <div class="section-heading"><div><p class="eyebrow">PICK AN ADVENTURE</p><h2>Let's play!</h2><p class="section-subtitle">What shall we do together today?</p></div><span class="flower">✿</span></div>
       <div class="game-grid">
         <button class="game-card talk-card" type="button" data-game="story">
-          <span class="card-emoji"><img src="assets/bunny.svg" alt=""></span><span class="card-tag">IMAGINE & SPEAK</span>
+          <span class="card-emoji"><img src="assets/story-scene.svg" alt="Teddy and Bunny in a magical meadow"></span><span class="card-tag">IMAGINE & SPEAK</span>
           <strong>Story Time</strong><span class="card-desc">Join Teddy and Bunny on little adventures. You decide what happens next!</span>
           <span class="learn-line">Your ideas. Your story.</span><span class="card-link">Start an adventure ↗</span>
         </button>
         <button class="game-card animal-card" type="button" data-game="everyday">
-          <span class="card-emoji"><img src="assets/bear.svg" alt=""></span><span class="card-tag">LEARN & USE</span>
+          <span class="card-emoji"><img src="assets/everyday-scene.svg" alt="Teddy learning everyday phrases"></span><span class="card-tag">LEARN & USE</span>
           <strong>Everyday English</strong><span class="card-desc">Learn helpful little phrases, match them to real-life moments, then say them yourself.</span>
           <span class="learn-line">Water · Snacks · Help · Play</span><span class="card-link">Learn with Teddy ↗</span>
         </button>
-        <div class="game-card places-card coming-card">
-          <span class="card-emoji">🐻‍❄️</span><span class="card-tag">A NEW ADVENTURE</span>
-          <strong>More games soon</strong><span class="card-desc">We're saving a little space for another way to chat and play.</span>
-          <span class="learn-line">Coming soon</span>
-        </div>
+        <button class="game-card conversation-card" type="button" data-game="conversation">
+          <span class="card-emoji"><img src="assets/conversation-scene.svg" alt="Teddy and Bunny talking together"></span><span class="card-tag">START THE CHAT</span>
+          <strong>Speak & Play</strong><span class="card-desc">Notice something, start talking, and keep a little conversation going with your animal friends.</span>
+          <span class="learn-line">Say hello · Ask · React · Take turns</span><span class="card-link">Start chatting ↗</span>
+        </button>
       </div>
     </section>
     <section class="grownup-note"><span class="note-icon">💛</span><div><h3>A little note for grown-ups</h3><p>Give her time to think and answer. A word, a short phrase, a gesture or a mixed-language attempt can all be a start. Model a natural English phrase without asking for perfection. The goal is happy, meaningful communication.</p></div></section>
@@ -72,6 +72,7 @@
       </div>
       <div class="feedback hidden" id="feedback" aria-live="polite"></div>
       <button class="next-btn hidden" id="nextBtn" type="button">Next →</button>
+      <div class="voice-picker"><label for="voiceSelect">Speaking voice</label><select id="voiceSelect"><option value="auto">Best available English voice</option></select></div>
       <p class="privacy-note">Microphone support depends on the browser. An adult should help with permission. You can always play without it.</p>
     </section>
   </div>
