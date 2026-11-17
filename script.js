@@ -7,24 +7,33 @@ const hintBtn = $("hintBtn"), nextBtn = $("nextBtn"), replayBtn = $("replayBtn")
 const bank = $("phraseBank"), progress = $("lessonProgress");
 const synth = "speechSynthesis" in window ? window.speechSynthesis : null;
 let voice = null, soundOn = true, recognition = null, listening = false;
-let game = "", phase = "", index = 0, selected = null, lastText = "", storyStep = 0;
+let game = "", phase = "", index = 0, selected = null, lastText = "", storyStep = 0, conversationTurn = 0;
 const praise = ["Lovely talking!", "I love your idea!", "You helped so much!", "What a good thought!"];
 const pick = a => a[Math.floor(Math.random()*a.length)];
 function chooseVoice(){
  if(!synth)return;
  const vs=synth.getVoices().filter(v=>/^en/i.test(v.lang));
- voice=vs.find(v=>/natural|neural|Google UK English Female|Serena|Kate|Sonia|Martha|Hazel|Samantha/i.test(v.name))||vs[0]||null;
+ const select=$("voiceSelect");
+ const previous=select?.value||"auto";
+ if(select){
+   select.innerHTML='<option value="auto">Best available English voice</option>';
+   vs.forEach((v,i)=>{const o=document.createElement("option");o.value=String(i);o.textContent=v.name+" ("+v.lang+")";select.appendChild(o);});
+   if(previous!=="auto"&&Number(previous)<vs.length)select.value=previous;
+ }
+ const natural=vs.find(v=>/online.*natural|natural.*online|neural|google.*english|samantha|aria|jenny|sonia/i.test(v.name));
+ voice=select&&select.value!=="auto"?vs[Number(select.value)]:(natural||vs[0]||null);
 }
 if(synth){chooseVoice();synth.onvoiceschanged=chooseVoice;}
+$("voiceSelect")?.addEventListener("change",()=>{chooseVoice();say("Hello! Let's play together.");});
 function stopSpeaking(){if(synth)synth.cancel();}
-function say(text){lastText=text;if(!soundOn||!synth||listening)return;stopSpeaking();const u=new SpeechSynthesisUtterance(text);u.lang="en-GB";if(voice)u.voice=voice;u.rate=.78;u.pitch=1.05;synth.speak(u);}
-function setStage(file){stageImg.src=A+file+".svg";}
+function say(text){lastText=text;if(!soundOn||!synth||listening)return;stopSpeaking();const u=new SpeechSynthesisUtterance(text);u.lang="en-GB";if(voice)u.voice=voice;u.rate=.88;u.pitch=1.08;synth.speak(u);}
+function setStage(file){stageImg.src=A+file+".svg";const stage=$("characterStage");if(stage)stage.dataset.scene=game||"story";}
 function show(el){el.classList.remove("hidden");}
 function hide(el){el.classList.add("hidden");}
 function resetPanels(){choicesEl.innerHTML="";bank.innerHTML="";hide(bank);hide(progress);hide(feedbackEl);hide(nextBtn);show(replayBtn);show(micBtn);show(hintBtn);selected=null;}
 function openGame(which){
  game=which;index=0;storyStep=0;modal.classList.remove("hidden");document.body.style.overflow="hidden";
- if(which==="story")renderStory();else{phase="learn";renderLesson();}
+ if(which==="story")renderStory();else if(which==="everyday"){phase="learn";renderLesson();}else{conversationTurn=0;renderConversation();}
 }
 function closeGame(){stopMic();stopSpeaking();modal.classList.add("hidden");document.body.style.overflow="";}
 function stopMic(){if(recognition&&listening){try{recognition.stop()}catch(e){}}listening=false;micBtn.classList.remove("listening");micBtn.querySelector("strong").textContent="My turn to talk!";}
@@ -40,6 +49,7 @@ function listen(){
  try{recognition.start()}catch(e){stopMic();statusEl.textContent="Let's try again when you're ready.";}
 }
 function onSpeech(words){
+ if(game==="conversation"){conversationSpeech(words);return;}
  if(game==="story"){show(feedbackEl);feedbackEl.textContent=pick(praise)+" "+words+"!";say("I love that idea! "+words);}
  else if(phase==="say"){show(feedbackEl);feedbackEl.textContent="You had a go! That's wonderful. You can say it again or move on.";say("Well done for having a go!");show(nextBtn);}
  else if(phase==="free"){show(feedbackEl);feedbackEl.textContent="You told me what you need. Lovely talking!";say("Lovely talking!");show(nextBtn);}
@@ -118,8 +128,44 @@ function renderFree(){
  show(nextBtn);nextBtn.textContent=index===matches.length-1?"Finish →":"Next moment →";
  nextBtn.onclick=()=>{if(index<matches.length-1){index++;renderFree();}else{base("WELL DONE!","","You did it!","You learned lots of useful English.","Every little attempt helps you grow. Let's play again soon.","bunny");statusEl.textContent="Lovely talking!";say("You did it! I'm so proud of your talking!");hide(micBtn);hide(hintBtn);hide(replayBtn);show(nextBtn);nextBtn.textContent="Choose another game";nextBtn.onclick=closeGame;}};
 }
+
+const conversations=[
+ {scene:"Teddy is building a very tall block tower. He looks excited!",prompt:"Teddy is making something. What could you say to start talking to him?",starters:["What are you making?","Can I help you?","Wow, that's tall!"],reply:"I'm building a tall tower! Do you want to help me?",follow:["Yes, please!","Let's build together!","Can I have a block?"]},
+ {scene:"Bunny has a colourful new kite. It's flying in the sky!",prompt:"Bunny has something new. What could you say to her?",starters:["What's that?","Can I see?","Your kite is pretty!"],reply:"It's my new kite! Do you like it?",follow:["Yes, I love it!","Can I fly it?","It's so beautiful!"]},
+ {scene:"Teddy dropped his toy and looks a little sad.",prompt:"Teddy looks sad. What could you say to him?",starters:["Are you okay?","What's wrong?","Do you need help?"],reply:"My toy fell down. Can you help me?",follow:["Of course!","Here you are!","Let's pick it up!"]},
+ {scene:"Bunny is drawing a picture with lots of colours.",prompt:"Bunny is drawing. How could you start a chat?",starters:["What are you drawing?","Can I draw too?","I like your picture!"],reply:"I'm drawing a rainbow! What is your favourite colour?",follow:["I like pink!","I like blue!","I love all colours!"]},
+ {scene:"Teddy and Bunny are playing with a big red ball.",prompt:"They are playing a game. What could you say to join in?",starters:["Can I play too?","What are you playing?","Let's play together!"],reply:"We're playing catch! Would you like a turn?",follow:["Yes, please!","Throw it to me!","It's my turn!"]}
+];
+function renderConversation(){
+ phase="conversation";const c=conversations[index%conversations.length];conversationTurn=0;
+ base("SPEAK & PLAY","Chat "+(index+1)+" of "+conversations.length,"Start the conversation!",c.scene,c.prompt,"bunny");
+ $("characterStage").dataset.scene="conversation";
+ progress.textContent="Look, think, and start talking · "+(index+1)+" / "+conversations.length;show(progress);
+ const scene=document.createElement("div");scene.className="conversation-scene-note";scene.textContent="💭 What would you say first?";choicesEl.appendChild(scene);
+ c.starters.forEach(t=>{const b=document.createElement("button");b.className="choice-btn conversation-starter";b.textContent=t;b.onclick=()=>{say(t);conversationTurn=1;showConversationReply();};choicesEl.appendChild(b);});
+ statusEl.textContent="You can think of your own words, or tap an idea to hear it.";
+ show(nextBtn);nextBtn.textContent="I had a turn! →";nextBtn.onclick=()=>{if(conversationTurn===0){statusEl.textContent="Try saying hello or asking a question first. You can tap one of the ideas.";return;}nextConversation();};
+}
+function showConversationReply(){
+ const c=conversations[index%conversations.length];hide(nextBtn);choicesEl.innerHTML="";
+ const reply=document.createElement("div");reply.className="character-reply";reply.innerHTML="<strong>Teddy / Bunny says:</strong><span>"+c.reply+"</span>";choicesEl.appendChild(reply);
+ const question=document.createElement("p");question.className="conversation-followup";question.textContent="What could you say back?";choicesEl.appendChild(question);
+ c.follow.forEach(t=>{const b=document.createElement("button");b.className="choice-btn conversation-starter";b.textContent=t;b.onclick=()=>{say(t);statusEl.textContent="Lovely! You kept the conversation going.";show(feedbackEl);feedbackEl.textContent="You started a chat and took another turn. That's real talking!";show(nextBtn);nextBtn.textContent="Next chat →";nextBtn.onclick=nextConversation;};choicesEl.appendChild(b);});
+ conversationTurn=1;statusEl.textContent="Teddy or Bunny answered! Can you say something back?";
+ say(c.reply);
+}
+function conversationSpeech(words){
+ if(conversationTurn===0){show(feedbackEl);feedbackEl.textContent="You started the chat! "+words;showConversationReply();}
+ else{show(feedbackEl);feedbackEl.textContent="You kept the chat going! "+words;statusEl.textContent="Wonderful chatting. Ready for another friend?";show(nextBtn);nextBtn.textContent="Next chat →";nextBtn.onclick=nextConversation;}
+}
+function nextConversation(){
+ if(index<conversations.length-1){index++;renderConversation();}
+ else{base("CHAT COMPLETE","","You started five little chats!","You said hello, asked questions and kept conversations going.","That's exactly how little conversations grow. Let's play again!","bunny");$("characterStage").dataset.scene="conversation";statusEl.textContent="You did it!";hide(micBtn);hide(hintBtn);hide(replayBtn);show(nextBtn);nextBtn.textContent="Play again";nextBtn.onclick=()=>{index=0;renderConversation();};}
+}
+
 function showHint(){
  if(game==="story"){say("You can start with: I think… or Let's…");statusEl.textContent="You can use your own idea. There is no wrong answer.";return;}
+ if(game==="conversation"){const c=conversations[index%conversations.length];say(conversationTurn===0?c.starters[0]:c.follow[0]);statusEl.textContent="Try one of these ideas, or think of your own words.";return;}
  const p=phrases[matches[index]?.answer??index]||phrases[index];show(feedbackEl);feedbackEl.textContent="Here is one way to say it: “"+p.say+"”";say(p.say);
 }
 document.querySelectorAll("[data-game]").forEach(b=>b.addEventListener("click",()=>openGame(b.dataset.game)));
