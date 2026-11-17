@@ -27,7 +27,7 @@ if(synth){chooseVoice();synth.onvoiceschanged=chooseVoice;}
 $("voiceSelect")?.addEventListener("change",()=>{chooseVoice();say("Hello! Let's play together.");});
 function stopSpeaking(){if(synth)synth.cancel();}
 function say(text){lastText=text;if(!soundOn||!synth||listening)return;stopSpeaking();const u=new SpeechSynthesisUtterance(text);u.lang="en-GB";if(voice)u.voice=voice;u.rate=.88;u.pitch=1.08;synth.speak(u);}
-function setStage(file){stageImg.src=A+file+".svg";const stage=$("characterStage");if(stage)stage.dataset.scene=game||"story";}
+function setStage(file){stageImg.src=A+"images/characters.png";const stage=$("characterStage");if(stage)stage.dataset.scene=game||"story";}
 function show(el){el.classList.remove("hidden");}
 function hide(el){el.classList.add("hidden");}
 function resetPanels(){choicesEl.innerHTML="";bank.innerHTML="";hide(bank);hide(progress);hide(feedbackEl);hide(nextBtn);show(replayBtn);show(micBtn);show(hintBtn);selected=null;}
