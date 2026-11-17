@@ -72,3 +72,12 @@ img{display:block;max-width:100%}
 .drop-zone{background-image:radial-gradient(#d9cff6 1px,transparent 1px);background-size:12px 12px}
 @media(max-width:760px){.game-card{min-height:0}.card-emoji{aspect-ratio:16/9}.character-stage{height:150px}.voice-picker{flex-wrap:wrap}.voice-picker select{max-width:100%}}
 @media(prefers-reduced-motion:reduce){.hero-scene,.hero-art .speech-bubble,.character-stage .character{animation:none!important}}
+
+
+.character-stage{background-image:none!important}
+.character-stage:before{content:"";position:absolute;inset:-5%;z-index:0;background-size:cover;background-position:center;animation:stage-drift 14s ease-in-out infinite alternate}
+.character-stage[data-scene="story"]:before{background-image:url("assets/story-scene.svg")}
+.character-stage[data-scene="everyday"]:before{background-image:url("assets/everyday-scene.svg")}
+.character-stage[data-scene="conversation"]:before{background-image:url("assets/conversation-scene.svg")}
+@keyframes stage-drift{from{transform:scale(1) translateX(0)}to{transform:scale(1.08) translateX(-1.5%)}}
+.character-stage:after{z-index:0;pointer-events:none;background:linear-gradient(180deg,#ffffff08,#ffffff24)}
