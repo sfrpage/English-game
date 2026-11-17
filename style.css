@@ -132,3 +132,5 @@ img{display:block;max-width:100%}
  .card-link{margin-top:4px;min-width:0}
 }
 @media(prefers-reduced-motion:reduce){.hero-animal,.card-friend{animation:none!important}}
+
+.character-stage[data-scene="story"] .character,.character-stage[data-scene="conversation"] .character{display:block}
