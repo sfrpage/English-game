@@ -134,3 +134,18 @@ img{display:block;max-width:100%}
 @media(prefers-reduced-motion:reduce){.hero-animal,.card-friend{animation:none!important}}
 
 .character-stage[data-scene="story"] .character,.character-stage[data-scene="conversation"] .character{display:block}
+
+
+/* Real generated artwork */
+.hero-art{border-radius:30px;overflow:hidden;min-height:300px;background:#dceeff}
+.hero-scene{object-fit:cover}
+.hero-characters{position:absolute;z-index:3;right:3%;bottom:0;width:53%;height:88%;object-fit:contain;object-position:bottom center;filter:drop-shadow(0 10px 12px #44335a20)}
+.hero-title{z-index:4}
+.card-emoji{aspect-ratio:4/3!important;height:auto!important;overflow:hidden;border-radius:19px}
+.card-emoji img.scene-bg{width:100%;height:100%;object-fit:cover}
+.character-stage{background-size:cover;background-position:center}
+.character-stage[data-scene="story"]{background-image:url("assets/images/story-background.png")}
+.character-stage[data-scene="everyday"]{background-image:url("assets/images/everyday-background.png")}
+.character-stage[data-scene="conversation"]{background-image:url("assets/images/speak-background.png")}
+.stage-img.character{width:75%;height:100%;max-width:75%;object-fit:contain;filter:drop-shadow(0 8px 10px #33234b24)}
+@media(max-width:760px){.hero-art{min-height:170px;aspect-ratio:16/9}.hero-characters{width:58%;height:90%;right:0}.card-emoji{aspect-ratio:4/3!important}}
