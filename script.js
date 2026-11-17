@@ -147,7 +147,7 @@ function renderConversation(){
  show(nextBtn);nextBtn.textContent="I had a turn! →";nextBtn.onclick=()=>{if(conversationTurn===0){statusEl.textContent="Try saying hello or asking a question first. You can tap one of the ideas.";return;}nextConversation();};
 }
 function showConversationReply(){
- const c=conversations[index%conversations.length];choicesEl.innerHTML="";
+ const c=conversations[index%conversations.length];hide(nextBtn);choicesEl.innerHTML="";
  const reply=document.createElement("div");reply.className="character-reply";reply.innerHTML="<strong>Teddy / Bunny says:</strong><span>"+c.reply+"</span>";choicesEl.appendChild(reply);
  const question=document.createElement("p");question.className="conversation-followup";question.textContent="What could you say back?";choicesEl.appendChild(question);
  c.follow.forEach(t=>{const b=document.createElement("button");b.className="choice-btn conversation-starter";b.textContent=t;b.onclick=()=>{say(t);statusEl.textContent="Lovely! You kept the conversation going.";show(feedbackEl);feedbackEl.textContent="You started a chat and took another turn. That's real talking!";show(nextBtn);nextBtn.textContent="Next chat →";nextBtn.onclick=nextConversation;};choicesEl.appendChild(b);});
