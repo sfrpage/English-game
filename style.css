@@ -81,3 +81,54 @@ img{display:block;max-width:100%}
 .character-stage[data-scene="conversation"]:before{background-image:url("assets/conversation-scene.svg")}
 @keyframes stage-drift{from{transform:scale(1) translateX(0)}to{transform:scale(1.08) translateX(-1.5%)}}
 .character-stage:after{z-index:0;pointer-events:none;background:linear-gradient(180deg,#ffffff08,#ffffff24)}
+
+
+/* Teddy & Bunny home refresh: keep the characters visible as real HTML images. */
+.welcome{display:block;max-width:1180px;padding:12px 24px 26px}
+.welcome-copy{display:none}
+.hero-art{height:auto;aspect-ratio:5.35/1;min-height:125px;max-height:235px;width:100%;border-radius:28px;overflow:hidden;background:#d8ecff}
+.hero-scene{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%;z-index:0}
+.hero-title{position:absolute;z-index:3;left:32%;top:23%;width:40%;display:flex;flex-direction:column;align-items:center;text-align:center;color:#70402b;text-shadow:0 1px 0 #fff9}
+.hero-title strong{font-size:clamp(19px,3.3vw,39px);font-weight:1000;line-height:1.05}
+.hero-title span{font-size:clamp(10px,1.4vw,17px);font-weight:900;margin-top:5px;color:#674b43}
+.hero-animal{display:block!important;position:absolute;z-index:2;object-fit:contain;filter:drop-shadow(0 5px 5px #493d6c20);animation:bob 3.2s ease-in-out infinite}
+.hero-teddy{width:23%;height:95%;left:2%;bottom:-4%;font-size:0}
+.hero-bunny{width:21%;height:95%;left:18%;bottom:-4%;font-size:0;animation-delay:.35s}
+.game-section{padding-top:28px}
+.section-heading{display:none}
+.game-grid{gap:18px}
+.game-card{min-height:0;padding:14px 14px 17px;border-radius:26px;text-align:center;align-items:center}
+.talk-card{background:#ffdce9}
+.animal-card{background:#fff0c8}
+.conversation-card{background:#e8dcff}
+.card-emoji{position:relative;display:block;width:100%;height:auto;aspect-ratio:1.38/1;overflow:hidden;border-radius:18px;margin:0 0 12px;background:#dcecff}
+.card-emoji .scene-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.card-friend{position:absolute;z-index:2;bottom:0;height:90%;width:46%;object-fit:contain;filter:drop-shadow(0 5px 4px #493d6c24);animation:bob 3s ease-in-out infinite}
+.card-friend.teddy{left:5%}
+.card-friend.bunny{right:5%;animation-delay:.4s}
+.everyday-illustration .scene-bg{object-position:center}
+.everyday-illustration .card-friend.teddy{height:78%;width:38%;left:2%}
+.game-card .card-tag{margin:0 0 4px}
+.game-card strong{font-size:clamp(17px,2vw,22px);margin:2px 0}
+.game-card .card-desc{font-size:12px;line-height:1.4;margin:4px 0 8px}
+.game-card .learn-line{display:none}
+.card-link{margin-top:8px;display:inline-flex;justify-content:center;min-width:58%;border-radius:999px;padding:10px 15px;background:#f06f91;color:white;font-size:13px;box-shadow:0 3px 0 #d95c7d}
+.animal-card .card-link{background:#f2b633;box-shadow:0 3px 0 #d69b20}
+.conversation-card .card-link{background:#8868c8;box-shadow:0 3px 0 #6d51a9}
+.grownup-note{margin-top:20px}
+@media(max-width:760px){
+ .welcome{padding:10px 14px 18px}
+ .hero-art{aspect-ratio:3.8/1;min-height:110px}
+ .hero-title{left:35%;width:42%;top:20%}
+ .hero-teddy{width:25%;left:0}
+ .hero-bunny{width:22%;left:19%}
+ .game-section{padding:20px 14px 34px}
+ .game-grid{grid-template-columns:1fr;gap:14px}
+ .game-card{display:grid;grid-template-columns:42% 1fr;grid-template-rows:auto auto 1fr auto;column-gap:12px;text-align:left;align-items:center;padding:12px}
+ .card-emoji{grid-row:1/5;grid-column:1;aspect-ratio:1/1.05;margin:0}
+ .game-card .card-tag,.game-card strong,.game-card .card-desc,.game-card .card-link{grid-column:2}
+ .game-card .card-tag{align-self:end}
+ .game-card .card-desc{margin:3px 0}
+ .card-link{margin-top:4px;min-width:0}
+}
+@media(prefers-reduced-motion:reduce){.hero-animal,.card-friend{animation:none!important}}
