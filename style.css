@@ -324,3 +324,13 @@ img{display:block;max-width:100%}
   height:100%;
   object-fit:cover;
 }
+
+
+/* Consistent, unmistakable animal thumbnails */
+.game-card .animal-emoji{display:flex;align-items:center;justify-content:center;width:100%;height:auto;aspect-ratio:16/9;border-radius:17px;background:linear-gradient(135deg,#fff8ed,#f4edff);font-size:clamp(76px,11vw,112px);line-height:1;margin:0 0 16px;overflow:hidden}
+.game-card .teddy-thumb{background:linear-gradient(135deg,#fff1d9,#f8dfbd)}
+.game-card .bunny-thumb{background:linear-gradient(135deg,#fff0f4,#f5e8ff)}
+.game-card .foxy-thumb{background:linear-gradient(135deg,#fff0df,#ffe0c2)}
+.game-card .trio-emoji{display:flex;align-items:center;justify-content:center;gap:clamp(8px,2vw,22px);width:100%;height:auto;aspect-ratio:16/9;border-radius:17px;background:linear-gradient(135deg,#e9f5ff,#fff0f5 52%,#fff2d9);font-size:clamp(54px,8vw,82px);line-height:1;margin:0 0 16px;overflow:hidden}
+.game-card .trio-emoji span{display:inline-block;filter:drop-shadow(0 5px 3px #45304b18)}
+@media(max-width:760px){.game-card .animal-emoji{font-size:100px}.game-card .trio-emoji{font-size:76px}}
