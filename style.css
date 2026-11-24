@@ -276,3 +276,51 @@ img{display:block;max-width:100%}
 .animal-game-grid .story-game .card-emoji img{
   object-fit:cover;
 }
+
+
+/* Reliable game thumbnails: render the artwork as real image elements. */
+.animal-game-grid .card-emoji.single-character{
+  position:relative;
+  display:block;
+  width:100%;
+  aspect-ratio:4/3;
+  height:auto;
+  overflow:hidden;
+  border-radius:19px;
+  margin:0 0 12px;
+}
+.animal-game-grid .teddy-thumb,
+.animal-game-grid .bunny-thumb{background:#fff0d9}
+.animal-game-grid .teddy-thumb img,
+.animal-game-grid .bunny-thumb img{
+  position:absolute;
+  top:0;
+  left:0;
+  width:200%;
+  max-width:none;
+  height:100%;
+  object-fit:cover;
+}
+.animal-game-grid .teddy-thumb img{object-position:left center}
+.animal-game-grid .bunny-thumb img{left:-100%;object-position:right center}
+.animal-game-grid .foxy-thumb{background:#e8dcff}
+.animal-game-grid .foxy-thumb img{
+  width:100%;
+  height:100%;
+  max-width:none;
+  object-fit:contain;
+  padding:5%;
+}
+.animal-game-grid .story-thumb{
+  display:block;
+  width:100%;
+  aspect-ratio:4/3;
+  overflow:hidden;
+  border-radius:19px;
+  margin:0 0 12px;
+}
+.animal-game-grid .story-thumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
