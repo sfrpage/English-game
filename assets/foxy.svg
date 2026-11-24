@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" role="img" aria-label="Friendly little orange fox">
+<defs><linearGradient id="fur" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffbd68"/><stop offset="1" stop-color="#e87535"/></linearGradient><linearGradient id="cream" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff4df"/><stop offset="1" stop-color="#f3d9b7"/></linearGradient></defs>
+<ellipse cx="240" cy="329" rx="125" ry="17" fill="#8065a5" opacity=".13"/>
+<path d="M318 250c83-8 117 44 94 78-19 27-72 12-94-18-18-24-24-43 0-60Z" fill="url(#fur)"/>
+<path d="M383 302c19 12 28 9 34 1-4 21-24 29-44 17Z" fill="#fff0dc"/>
+<path d="M155 138 105 42c-5-11 5-19 16-12l80 57M325 138l50-96c5-11-5-19-16-12l-80 57" fill="url(#fur)" stroke="#c95f2f" stroke-width="5" stroke-linejoin="round"/>
+<path d="m128 64 49 41-33 13ZM352 64l-49 41 33 13Z" fill="#f7b4a2"/>
+<path d="M144 130c0-65 43-102 96-102s96 37 96 102v94c0 55-41 88-96 88s-96-33-96-88Z" fill="url(#fur)" stroke="#c95f2f" stroke-width="5"/>
+<path d="M165 189c-2-34 30-63 75-63s77 29 75 63c-2 42-31 83-75 83s-73-41-75-83Z" fill="url(#cream)"/>
+<path d="M172 158c16-17 37-20 53-8-9 17-25 26-46 24ZM308 158c-16-17-37-20-53-8 9 17 25 26 46 24Z" fill="#fff0dc"/>
+<ellipse cx="205" cy="155" rx="7" ry="11" fill="#49313a"/><ellipse cx="275" cy="155" rx="7" ry="11" fill="#49313a"/>
+<circle cx="207" cy="151" r="2.5" fill="white"/><circle cx="277" cy="151" r="2.5" fill="white"/>
+<path d="M231 191q9-8 18 0-9 13-18 0Z" fill="#49313a"/>
+<path d="M240 202q-12 16-27 3M240 202q12 16 27 3" fill="none" stroke="#9c594c" stroke-width="4" stroke-linecap="round"/>
+<path d="M177 278q-5 37 20 43h86q25-6 20-43" fill="url(#fur)" stroke="#c95f2f" stroke-width="5"/>
+<path d="M204 292q36 20 72 0" fill="none" stroke="#fff0dc" stroke-width="12" stroke-linecap="round"/>
+<path d="M168 216q-36 11-51 0M312 216q36 11 51 0" fill="none" stroke="#fff0dc" stroke-width="4" stroke-linecap="round"/>
+<circle cx="92" cy="111" r="8" fill="#f4c95d"/><path d="m92 91 4 12 12 4-12 4-4 12-4-12-12-4 12-4Z" fill="#f4c95d"/>
+<circle cx="389" cy="138" r="7" fill="#f4c95d"/><path d="m389 120 4 11 11 4-11 4-4 11-4-11-11-4 11-4Z" fill="#f4c95d"/>
+</svg>
