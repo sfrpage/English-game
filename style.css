@@ -232,3 +232,12 @@ img{display:block;max-width:100%}
   .hero-title{left:50%;top:50%;width:88%;padding:12px 14px}
   .character-stage{aspect-ratio:4/3}
 }
+
+/* Restored animal games */
+.game-grid.animal-game-grid{grid-template-columns:repeat(2,minmax(0,1fr));max-width:900px;margin:0 auto}
+.animal-game-grid .game-card{min-height:0}
+.animal-game-grid .story-game{background:#fff0d9}
+.animal-game-grid .story-game .card-link{background:#5d9b78;box-shadow:0 3px 0 #467d5e}
+.animal-game-grid .foxy-game .card-link{background:#8868c8;box-shadow:0 3px 0 #6d51a9}
+.character-stage[data-scene="foxy"]:before{background-image:url("assets/foxy.svg");background-size:contain;background-repeat:no-repeat;background-position:center bottom;background-color:#f1eaff}
+@media(max-width:760px){.game-grid.animal-game-grid{grid-template-columns:1fr}.animal-game-grid .game-card{min-height:0}}
