@@ -351,3 +351,49 @@ img{display:block;max-width:100%}
 .card-emoji.foxy-thumb{background:linear-gradient(135deg,#fff0df,#ffe0c2)}
 .card-emoji.duck-thumb{background:linear-gradient(135deg,#fff7d9,#e7f5ff)}
 @media(max-width:760px){.card-emoji.animal-emoji{font-size:100px}}
+
+/* Keep every mascot exactly in the centre of its thumbnail, including mobile grid layout */
+.card-emoji.animal-emoji{
+  display:flex!important;
+  position:relative!important;
+  float:none!important;
+  inset:auto!important;
+  width:100%!important;
+  height:auto!important;
+  aspect-ratio:4/3!important;
+  margin:0 0 12px!important;
+  padding:0!important;
+  align-self:stretch!important;
+  justify-self:stretch!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  line-height:1!important;
+  font-size:clamp(82px,12vw,116px)!important;
+  transform:none!important;
+}
+.card-emoji.animal-emoji::before,
+.card-emoji.animal-emoji::after{content:none!important;display:none!important}
+.card-emoji.chick-thumb{background:linear-gradient(135deg,#fff7d9,#e7f5ff)!important}
+@media(max-width:760px){
+  .game-grid.animal-game-grid .game-card{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:center!important;
+    text-align:center!important;
+  }
+  .game-grid.animal-game-grid .card-emoji.animal-emoji{
+    grid-column:auto!important;
+    grid-row:auto!important;
+    width:100%!important;
+    aspect-ratio:4/3!important;
+    font-size:108px!important;
+  }
+  .game-grid.animal-game-grid .game-card .card-tag,
+  .game-grid.animal-game-grid .game-card strong,
+  .game-grid.animal-game-grid .game-card .card-desc,
+  .game-grid.animal-game-grid .game-card .card-link{
+    width:100%;
+    text-align:center!important;
+  }
+}
