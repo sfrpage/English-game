@@ -9,75 +9,64 @@
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="#" aria-label="Teddy and Bunny home">
-      <span class="brand-mark">🐻</span>
-      <span><strong>Teddy &amp; Bunny</strong><small>English Adventures</small></span>
-    </a>
+    <a class="brand" href="#" aria-label="Teddy and Bunny home"><span class="brand-mark">🐻</span><span><strong>Teddy &amp; Bunny</strong><small>English Adventures</small></span></a>
     <button class="sound-toggle" id="soundToggle" type="button" aria-pressed="true">🔊 <span>Sound on</span></button>
   </header>
   <main>
     <section class="welcome">
-      <div class="welcome-copy">
-        <p class="eyebrow">YOUR ENGLISH PLAYGROUND</p>
-        <h1>Let's play<br><span>and talk!</span></h1>
-        <p class="intro">Go on little adventures and learn words you can use every day. Teddy and Bunny are waiting for you.</p>
-        <a class="primary-btn" href="#games">Choose a game <span>↓</span></a>
-        <p class="gentle-note">💛 No tests. No pressure. Just play.</p>
-      </div>
       <div class="hero-art" aria-label="Teddy and Bunny's English adventure world">
         <img class="hero-scene" src="assets/images/homepage-background.png" alt="A magical pastel fairytale landscape">
         <div class="hero-title"><strong>Teddy &amp; Bunny</strong><span>Let's play and speak English together!</span></div>
-        <img class="hero-characters" src="assets/images/characters.png" alt="Teddy and Bunny">
-        
+        <img class="hero-characters" src="assets/images/characters.png" alt="Teddy, Bunny and Foxy together">
       </div>
     </section>
     <section class="game-section" id="games">
       <div class="section-heading"><div><p class="eyebrow">PICK AN ADVENTURE</p><h2>Let's play!</h2><p class="section-subtitle">What shall we do together today?</p></div><span class="flower">✿</span></div>
       <div class="game-grid animal-game-grid">
         <button class="game-card animal-card teddy-game" type="button" data-game="teddy">
-          <span class="card-emoji single-character teddy-thumb animal-emoji" role="img" aria-label="Teddy">🧸</span>
-          <span class="card-tag">CHOOSE & SPEAK</span><strong>Teddy's Toy Box</strong>
-          <span class="card-desc">Choose toys, snacks, clothes and things Teddy needs. Listen to the whole sentence, then say it!</span>
+          <span class="card-emoji"><img src="assets/images/characters.png" alt="Teddy with his favourite toys"></span>
+          <span class="card-tag">CHOOSE &amp; SPEAK</span><strong>Teddy's Toy Box</strong>
+          <span class="card-desc">Choose toys, snacks and things Teddy needs. Listen to a useful sentence, then make it your own.</span>
           <span class="card-link">Play with Teddy ↗</span>
         </button>
         <button class="game-card talk-card bunny-game" type="button" data-game="bunny">
-          <span class="card-emoji single-character bunny-thumb animal-emoji" role="img" aria-label="Bunny">🐰</span>
+          <span class="card-emoji"><img src="assets/images/everyday-thumbnail.png" alt="Bunny in an everyday situation"></span>
           <span class="card-tag">EVERYDAY ENGLISH</span><strong>Bunny's Little Day</strong>
-          <span class="card-desc">Practise useful phrases for water, snacks, the toilet, asking for help and playing together.</span>
+          <span class="card-desc">Learn several useful phrases together first, then remember what to say in real-life situations.</span>
           <span class="card-link">Play with Bunny ↗</span>
         </button>
         <button class="game-card conversation-card foxy-game" type="button" data-game="foxy">
-          <span class="card-emoji single-character foxy-thumb animal-emoji" role="img" aria-label="Foxy the fox">🦊</span>
-          <span class="card-tag">THINK & SPEAK</span><strong>Foxy's Little Problems</strong>
-          <span class="card-desc">Help Foxy with little problems. Choose an idea and say what he could do.</span>
+          <span class="card-emoji"><img src="assets/images/story-thumbnail.png" alt="Teddy, Bunny and Foxy together on an adventure"></span>
+          <span class="card-tag">THINK &amp; SPEAK</span><strong>Foxy's Little Problems</strong>
+          <span class="card-desc">Think of your own ideas to help Foxy. There isn't just one right answer.</span>
           <span class="card-link">Help Foxy ↗</span>
         </button>
         <button class="game-card story-game" type="button" data-game="story">
-          <span class="card-emoji story-thumb trio-emoji" role="img" aria-label="Teddy, Bunny and Foxy together"><span>🧸</span><span>🐰</span><span>🦊</span></span>
-          <span class="card-tag">OPTIONAL ADVENTURE</span><strong>Story Time</strong>
-          <span class="card-desc">Make up little stories with Teddy, Bunny and Foxy. There are no wrong ideas!</span>
+          <span class="card-emoji"><img src="assets/images/speak-thumbnail.png" alt="Friends talking and playing together"></span>
+          <span class="card-tag">MAKE-BELIEVE</span><strong>Story Time</strong>
+          <span class="card-desc">Make up little stories with Teddy, Bunny and Foxy. You decide what happens next.</span>
           <span class="card-link">Start a story ↗</span>
         </button>
       </div>
     </section>
-    <section class="grownup-note"><span class="note-icon">💛</span><div><h3>A little note for grown-ups</h3><p>Give her time to think and answer. A word, a short phrase, a gesture or a mixed-language attempt can all be a start. Model a natural English phrase without asking for perfection. The goal is happy, meaningful communication.</p></div></section>
+    <section class="grownup-note"><span class="note-icon">💛</span><div><h3>A little note for grown-ups</h3><p>Give her time to think. A word, a short phrase, a gesture or a mixed-language attempt can all be a start. Model a natural English phrase without asking for perfection. The goal is happy, meaningful communication.</p></div></section>
   </main>
   <footer><span>🌼 Made for little learners</span><span>Short phrases · Kind voices · Big smiles</span></footer>
   <div class="modal-backdrop hidden" id="gameModal" role="dialog" aria-modal="true" aria-labelledby="gameTitle">
     <section class="game-modal">
       <button class="close-btn" id="closeModal" type="button" aria-label="Close game">✕</button>
       <div class="modal-topline"><span id="gameBadge">STORY TIME</span><span id="roundCount"></span></div>
-      <div class="character-stage" id="characterStage"><img class="stage-img character" id="stageImg" src="assets/bunny.svg" alt="Bunny">
-      </div>
+      <div class="character-stage" id="characterStage"><img class="stage-img character" id="stageImg" src="assets/bunny.svg" alt="Bunny"></div>
       <h2 id="gameTitle">Story Time</h2><p class="prompt" id="prompt"></p><p class="helper" id="helper"></p>
       <div class="lesson-progress hidden" id="lessonProgress"></div>
+      <div class="teaching-phrase hidden" id="teachingPhrase"></div>
       <div class="choices" id="choices"></div>
       <div class="phrase-bank hidden" id="phraseBank" aria-label="Phrase choices"></div>
       <p class="speech-status" id="speechStatus" aria-live="polite">Listen, then have a go!</p>
       <div class="action-row">
         <button class="replay-btn" id="replayBtn" type="button"><span>🔊</span><strong>Listen again</strong></button>
         <button class="mic-btn" id="micBtn" type="button"><span>🎙️</span><strong>My turn to talk!</strong></button>
-        <button class="hint-btn" id="hintBtn" type="button">💡 Help me</button>
+        <button class="hint-btn" id="hintBtn" type="button">💡 Give me an idea</button>
       </div>
       <div class="feedback hidden" id="feedback" aria-live="polite"></div>
       <button class="next-btn hidden" id="nextBtn" type="button">Next →</button>
