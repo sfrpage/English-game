@@ -343,3 +343,11 @@ img{display:block;max-width:100%}
 .story-game{background:#e8f1ff}
 .story-game .card-link{background:#6797c9;box-shadow:0 3px 0 #4d79a8}
 @media(max-width:760px){.card-emoji{aspect-ratio:1/1.05!important}.card-emoji img{object-fit:cover}}
+
+/* Centered emoji-only game thumbnails */
+.card-emoji.animal-emoji{display:flex!important;align-items:center!important;justify-content:center!important;text-align:center;font-size:clamp(76px,11vw,112px);line-height:1;padding:0;background:linear-gradient(135deg,#fff8ed,#f4edff)}
+.card-emoji.teddy-thumb{background:linear-gradient(135deg,#fff1d9,#f8dfbd)}
+.card-emoji.bunny-thumb{background:linear-gradient(135deg,#fff0f4,#f5e8ff)}
+.card-emoji.foxy-thumb{background:linear-gradient(135deg,#fff0df,#ffe0c2)}
+.card-emoji.duck-thumb{background:linear-gradient(135deg,#fff7d9,#e7f5ff)}
+@media(max-width:760px){.card-emoji.animal-emoji{font-size:100px}}
