@@ -241,3 +241,38 @@ img{display:block;max-width:100%}
 .animal-game-grid .foxy-game .card-link{background:#8868c8;box-shadow:0 3px 0 #6d51a9}
 .character-stage[data-scene="foxy"]:before{background-image:url("assets/foxy.svg");background-size:contain;background-repeat:no-repeat;background-position:center bottom;background-color:#f1eaff}
 @media(max-width:760px){.game-grid.animal-game-grid{grid-template-columns:1fr}.animal-game-grid .game-card{min-height:0}}
+
+
+/* One mascot per main-game thumbnail; the optional story keeps all three. */
+.animal-game-grid .card-emoji.single-character{
+  position:relative;
+  display:block;
+  width:100%;
+  aspect-ratio:4/3!important;
+  height:auto!important;
+  overflow:hidden;
+  border-radius:19px;
+  background-color:#fff;
+  background-repeat:no-repeat;
+  background-size:200% 100%;
+  background-position:left center;
+}
+.animal-game-grid .teddy-thumb{
+  background-image:url("assets/images/characters.png");
+  background-position:left center;
+  background-color:#fff0c8;
+}
+.animal-game-grid .bunny-thumb{
+  background-image:url("assets/images/characters.png");
+  background-position:right center;
+  background-color:#ffdce9;
+}
+.animal-game-grid .foxy-thumb{
+  background-image:url("assets/foxy.svg");
+  background-size:contain;
+  background-position:center;
+  background-color:#e8dcff;
+}
+.animal-game-grid .story-game .card-emoji img{
+  object-fit:cover;
+}
